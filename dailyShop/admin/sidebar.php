@@ -5,7 +5,8 @@
 			//echo $filename;
 
 			$productmenu = array('products.php', 'categories.php', 'tags.php',);
-			$usermenu = array('user.php', 'manage.php');
+			$usermenu = array('user.php',);
+			$ordersmenu = array('manageorders.php');
 		?>
 
 			<h1 id="sidebar-title"><a href="#">Simpla Admin</a></h1>
@@ -45,7 +46,15 @@
 					</a>
 					<ul>
 						<li><a <?php if($filename == 'user.php'): ?>class="current"<?php endif; ?> href="user.php">Add User</a></li>
-						<li><a <?php if($filename == 'manage.php'): ?>class="current"<?php endif; ?> href="manage.php">Manage User</a></li>
+					</ul>
+				</li>
+
+				<li>
+					<a href="#" class="nav-top-item <?php if(in_array($filename,$ordersmenu)): ?> current <?php endif; ?>">
+						Orders
+					</a>
+					<ul>
+						<li><a <?php if($filename == 'manageorders.php'): ?>class="current"<?php endif; ?> href="manageorders.php">Manage User</a></li>
 					</ul>
 				</li>
 				
