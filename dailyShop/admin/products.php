@@ -125,7 +125,7 @@
 											echo "<td>" . $row['discription'] . "</td>";
 											echo "<td>";
 												echo "<a href='#' title='Edit'><img src='resources/images/icons/pencil.png' alt='Edit' /></a>";
-												echo "<a href='#' title='Delete'><img src='resources/images/icons/cross.png' alt='Delete'/></a>";
+												echo "<a href='delete_product.php?id=".$row['product_id']."'title='Delete'><img src='resources/images/icons/cross.png' alt='Delete'/></a>";
 												echo "<a href='#' title='Edit Meta'><img src='resources/images/icons/hammer_screwdriver.png' alt='Edit Meta' /></a>";
 											echo "</td>";
 										echo "</tr>";
