@@ -118,13 +118,13 @@
 										echo "<tr>";
 											echo'<td> <input type="checkbox" /></td>';
 											echo "<td>" . $row['category_id'] . "</td>";
-											echo '<td> <img src=" resources/images/'.$row['image'].'"/> </td>';
+											echo '<td> <img src="resources/images/'.$row['image'].'"/> </td>';
 											echo "<td>" . $row['name'] . "</td>";
 											echo "<td>" . $row['price'] . "</td>";
 											echo "<td>" . $row['tag'] . "</td>";
 											echo "<td>" . $row['discription'] . "</td>";
 											echo "<td>";
-												echo "<a href='#' title='Edit'><img src='resources/images/icons/pencil.png' alt='Edit' /></a>";
+												echo "<a href='update_product.php?id=".$row['product_id']."' title='Edit'><img src='resources/images/icons/pencil.png' alt='Edit' /></a>";
 												echo "<a href='delete_product.php?id=".$row['product_id']."'title='Delete'><img src='resources/images/icons/cross.png' alt='Delete'/></a>";
 												echo "<a href='#' title='Edit Meta'><img src='resources/images/icons/hammer_screwdriver.png' alt='Edit Meta' /></a>";
 											echo "</td>";
