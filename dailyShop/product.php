@@ -1,87 +1,16 @@
 <?php
-include("config.php");
-// session_start();
-// $sql="SELECT * FROM products";
-// $result=$connect->query($sql);
-// while($row = $result->fetch_assoc())
-// {
-//   $products[]=$row;
-// }
+  include("config.php");
+?>
 
-// if($_GET['action']=='add')
-// {
-//   if(isset($_SESSION['cart']))
-//   {   
-//     echo "<pre>";
-//     print_r($_SESSION['cart']);
-//     echo "</pre>";
-//     $productids = array_column($_SESSION['cart'],'product_id');
-//     if(!in_array($_GET['id'],$productids))
-//     {
-//       $count=count($_SESSION['cart']);
-//       foreach($products as $key=>$value)
-//       {
-//         if($value['product_id']==$_GET['id'])
-//         {
-//           $newitem=array(
-//             'product_id'=>$_GET['id'],
-//             'image'=>$value['image'],
-//             'price'=>$value['price']*$_GET['qty'], 
-//             'quantity'=>$_GET['qty'],
-//             'tag'=>$value['tag'],
-//             'discription'=>$value['discription'],
-//             'name'=>$value['name']
+<?php
+  $show_category=array();
+  $sql = "SELECT * FROM categories";
+  $result = mysqli_query($connect, $sql);
 
-
-//           );
-//           $_SESSION['cart'][$count]=$newitem;
-//            break;
-//         }
-//       }
-//     }
-//     else
-//     {
-//       // foreach($_SESSION['cart'] as $key=>$value)
-//       // {
-//       //   if($value['product_id']==$_GET['id'])
-//       //   {
-          
-//       //     $_SESSION['cart'][$key]['quantity']=$_SESSION['cart'][$key]['quantity']+$_POST['quantity'];
-          
-//       //     foreach($products as $kp=>$vp)
-//       //     {
-//       //       if($vp['id']==$_GET['id'])
-//       //       {  
-//       //         $_SESSION['cart'][$key]['product_price']=$_SESSION['cart'][$key]['quantity']*$vp['price'];
-//       //       }
-
-//       //     }
-//       //   }
-//       // }
-//     }
-//   }
-//   else
-//   {
-//     foreach($products as $key=>$value)
-//     {
-//       if($value['product_id']==$_GET['id'])
-//       {
-//         $newitem=array(
-//           'product_id'=>$_GET['id'],
-//           'image'=>$value['image'],
-//           'price'=>$value['price']*$_POST['qty'], 
-//           'quantity'=>$_POST['qty'],
-//           'tag'=>$value['tag'],
-//           'discription'=>$value['discription'],
-//           'name'=>$value['name']
-//       );
-//         $_SESSION['cart'][0]=$newitem;
-//         break;
-//       }
-
-//     }
-//   }		
-// }
+  while($row = mysqli_fetch_array($result))
+  {
+    $show_category[] = $row;
+  }
 ?>
 
 <?php
@@ -491,7 +420,7 @@ include("config.php");
                       echo '<div class="aa-product-hvr-content">';
                       //echo '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a></td>';
                       //echo '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a></td>';
-                      echo '<td> <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search quick"  data-id="'.$row['product_id'].'"></span></a></td>';
+                      echo '<td> <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search quick" data-id="'.$row['product_id'].'"></span></a></td>';
                       echo '</div>';
                       echo '<td> <span class="aa-badge aa-sale" href="#">SALE!</span></td>';
                     echo "</td>";
@@ -531,7 +460,7 @@ include("config.php");
                       data: {id : product_id},
                       dataType:"json"
                     })
-                    .done(function( msg ) {
+                    .done(function( msg ){
                       //alert(msg.product_id);
                       $(".name").html(msg.product.name);
                       $(".aa-product-quickview-price").html(msg.product.price);
@@ -681,24 +610,37 @@ include("config.php");
             <div class="aa-sidebar-widget">
               <h3>Category</h3>
               <ul class="aa-catg-nav">
-                <li><a href="men.php">Men</a></li>
+                <!-- <li><a href="men.php">Men</a></li>
                 <li><a href="women.php">Women</a></li>
                 <li><a href="kids.php">Kids</a></li>
                 <li><a href="electronics.php">Electornics</a></li>
-                <li><a href="sports.php">Sports</a></li>
+                <li><a href="sports.php">Sports</a></li> -->
+                <?php
+                  foreach($show_category as $show)
+                  {?>
+                    <li><a href="category.php?id=<?php echo $show['category_id'];?>"> <?php echo $show['name']; ?> </a></li>
+                <?php }
+                ?>
               </ul>
             </div>
             <!-- single sidebar -->
             <div class="aa-sidebar-widget">
               <h3>Tags</h3>
               <div class="tag-cloud">
-                <a href="#">Fashion</a>
+              <?php
+                $sql = mysqli_query($connect, "SELECT * FROM tags");
+                while($row = mysqli_fetch_array($sql))
+                {?>
+                  <a href="tags.php?id=<?php echo $row['tag_id'];?>"> <?php echo $row['name']; ?></a>
+               <?php }
+              ?>
+                <!-- <a href="#">Fashion</a>
                 <a href="#">Ecommerce</a>
                 <a href="#">Shop</a>
                 <a href="#">Hand Bag</a>
                 <a href="#">Laptop</a>
                 <a href="#">Head Phone</a>
-                <a href="#">Pen Drive</a>
+                <a href="#">Pen Drive</a> -->
               </div>
             </div>
             <!-- single sidebar -->
