@@ -1,87 +1,5 @@
 <?php
 include("config.php");
-// session_start();
-// $sql="SELECT * FROM products";
-// $result=$connect->query($sql);
-// while($row = $result->fetch_assoc())
-// {
-//   $products[]=$row;
-// }
-
-// if($_GET['action']=='add')
-// {
-//   if(isset($_SESSION['cart']))
-//   {   
-//     echo "<pre>";
-//     print_r($_SESSION['cart']);
-//     echo "</pre>";
-//     $productids = array_column($_SESSION['cart'],'product_id');
-//     if(!in_array($_GET['id'],$productids))
-//     {
-//       $count=count($_SESSION['cart']);
-//       foreach($products as $key=>$value)
-//       {
-//         if($value['product_id']==$_GET['id'])
-//         {
-//           $newitem=array(
-//             'product_id'=>$_GET['id'],
-//             'image'=>$value['image'],
-//             'price'=>$value['price']*$_GET['qty'], 
-//             'quantity'=>$_GET['qty'],
-//             'tag'=>$value['tag'],
-//             'discription'=>$value['discription'],
-//             'name'=>$value['name']
-
-
-//           );
-//           $_SESSION['cart'][$count]=$newitem;
-//            break;
-//         }
-//       }
-//     }
-//     else
-//     {
-//       // foreach($_SESSION['cart'] as $key=>$value)
-//       // {
-//       //   if($value['product_id']==$_GET['id'])
-//       //   {
-          
-//       //     $_SESSION['cart'][$key]['quantity']=$_SESSION['cart'][$key]['quantity']+$_POST['quantity'];
-          
-//       //     foreach($products as $kp=>$vp)
-//       //     {
-//       //       if($vp['id']==$_GET['id'])
-//       //       {  
-//       //         $_SESSION['cart'][$key]['product_price']=$_SESSION['cart'][$key]['quantity']*$vp['price'];
-//       //       }
-
-//       //     }
-//       //   }
-//       // }
-//     }
-//   }
-//   else
-//   {
-//     foreach($products as $key=>$value)
-//     {
-//       if($value['product_id']==$_GET['id'])
-//       {
-//         $newitem=array(
-//           'product_id'=>$_GET['id'],
-//           'image'=>$value['image'],
-//           'price'=>$value['price']*$_POST['qty'], 
-//           'quantity'=>$_POST['qty'],
-//           'tag'=>$value['tag'],
-//           'discription'=>$value['discription'],
-//           'name'=>$value['name']
-//       );
-//         $_SESSION['cart'][0]=$newitem;
-//         break;
-//       }
-
-//     }
-//   }		
-// }
 ?>
 
 <?php
@@ -474,9 +392,9 @@ include("config.php");
               <!-- TO DISPLAY PRODUCTS ADDED IN DATABASE -->
               <ul class="aa-product-catg">
                 <?php
-									$query = mysqli_query($connect, "SELECT * FROM products LIMIT $offset, $limit");
-									while($row = mysqli_fetch_array($query))
-									{
+                    $query = mysqli_query($connect, "SELECT * FROM products WHERE category_id = '5'");
+                    while($row = mysqli_fetch_array($query))
+                    {
                     echo "<li>";
                     echo "<figure>";
                     echo "<tr>";
@@ -632,28 +550,6 @@ include("config.php");
             </div>
             <div class="aa-product-catg-pagination">
               <nav>
-              <?php
-               $sql="SELECT * FROM products";  
-               $res=$connect->query($sql);
-               if($res->num_rows >0)
-               {
-                $total_records=$res->num_rows;
-                $total_page=ceil($total_records/$limit);
-                echo '<ul class="pagination">';
-                if($page>1)
-                {
-                  echo '<li><a href="product.php?page='.($page-1).'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
-                }
-                for($i=1;$i<=$total_page;$i++)
-                {
-                  echo '<li><a href="product.php?page='.$i.'">'.$i.'</a></li>';
-                }
-                if($page<$total_page)
-                {
-                  echo '<li><a href="product.php?page='.($page+1).'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
-                }
-               }
-              ?>
                 <!-- <ul class="pagination">
                   <li>
                     <a href="#" aria-label="Previous">
