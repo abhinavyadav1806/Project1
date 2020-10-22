@@ -365,35 +365,37 @@ session_start();
                       </tr>
                     </thead>
                     <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart'])!=0))
-                      { $total_price=0;
+                      { 
+                        $total_price=0;
                         echo '<tbody>';
                         foreach($_SESSION['cart'] as $key=>$value)
                         {                      
                        ?>
-                      <tr>
-                        <td><a class="remove" href="#"data-productid="<?php echo $value['product_id'];?>"data-type="delete"><fa class="fa fa-close"></fa></a></td>
-                        <td><a href="#"><img src="admin/resources/images/<?php echo $value['image'];?>" alt="<?php echo $value['name'];?>"></a></td>
-                        <td><a class="aa-cart-title" href="#"><?php echo $value['name'];?></a></td>
-                        <td>Rs.<?php echo $value['price'];?></td>
-                        <td><input class="aa-cart-quantity" type="number" value="<?php echo $value['quantity'];?>"></td>
-                        <td>Rs.<?php echo ($value['quantity'] * $value['price']); ?></td>
-                      </tr>
+                        <tr>
+                          <td><a class="remove" href="#"data-productid="<?php echo $value['product_id'];?>"data-type="delete"><fa class="fa fa-close"></fa></a></td>
+                          <td><a href="#"><img src="admin/resources/images/<?php echo $value['image'];?>" alt="<?php echo $value['name'];?>"></a></td>
+                          <td><a class="aa-cart-title" href="#"><?php echo $value['name'];?></a></td>
+                          <td>$<?php echo $value['price'];?></td>
+                          <td><input class="aa-cart-quantity" type="number" value="<?php echo $value['quantity'];?>"></td>
+                          <td>$<?php echo ($value['quantity'] * $value['price']); ?></td>
+                        </tr>
+                          <?php
+                          $total_price=$total_price + $value['price']; 
+                          } 
+                          ?>
+                        <tr>
+                          <td colspan="6" class="aa-cart-view-bottom">
+                            <div class="aa-cart-coupon">
+                              <input class="aa-coupon-code" type="text" placeholder="Coupon">
+                              <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
+                            </div>
+                            <input class="aa-cart-view-btn" type="submit" value="Update Cart">
+                          </td>
+                        </tr>
+                        </tbody>
                         <?php
-                        $total_price=$total_price + $value['price']; 
-                        } 
-                        ?>
-                      <tr>
-                        <td colspan="6" class="aa-cart-view-bottom">
-                          <div class="aa-cart-coupon">
-                            <input class="aa-coupon-code" type="text" placeholder="Coupon">
-                            <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
-                          </div>
-                          <input class="aa-cart-view-btn" type="submit" value="Update Cart">
-                        </td>
-                      </tr>
-                      </tbody>
-                      <?php
-                    } ?>
+                      } 
+                    ?>
                   </table>
                 </div>
              </form>
@@ -412,7 +414,7 @@ session_start();
                    </tr>
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="thankyou.php" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>

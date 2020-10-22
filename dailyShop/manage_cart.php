@@ -2,18 +2,12 @@
 <?php 
 session_start();
 include 'config.php';
-/*if(isset($_SESSION['cart']))
-{
-echo "SESSION set";
-}
-else{
-echo "Session not set";
-}*/
+
 $id = $_POST['id'];
 $type = $_POST['type'];
 if(isset($_POST['qty']))
 {
-    $qty =$_POST['qty'];
+    $qty =  $_POST['qty'];
 }
 $products=array();
 $sql="SELECT * FROM products";
@@ -44,7 +38,7 @@ if($type=='add')
                         'tag'=>$value['tag']
                     );
                     $_SESSION['cart'][$count]=$newitem;
-                  //  echo "product added succseesflly";
+                    //  echo "product added succseesflly";
                      break;
                 }
             }
@@ -70,10 +64,9 @@ if($type=='add')
                         'tag'=>$value['tag']
                     );
                 $_SESSION['cart'][0]=$newitem;
-             //   echo "product added succseesflly";
+                //echo "product added succseesflly";
                 break;
             }
-
         }
     }		
 }
@@ -87,10 +80,7 @@ if($type=='delete')
             unset($_SESSION['cart'][$key]);
             echo "deleted";
         }
-           
     }
 }
 //echo count($_SESSION['cart']);
-
-
 ?>

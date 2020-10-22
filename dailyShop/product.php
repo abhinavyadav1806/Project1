@@ -491,7 +491,7 @@ include("config.php");
                       echo '<div class="aa-product-hvr-content">';
                       //echo '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a></td>';
                       //echo '<td> <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a></td>';
-                      echo '<td> <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a></td>';
+                      echo '<td> <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search quick"  data-id="'.$row['product_id'].'"></span></a></td>';
                       echo '</div>';
                       echo '<td> <span class="aa-badge aa-sale" href="#">SALE!</span></td>';
                     echo "</td>";
@@ -503,25 +503,45 @@ include("config.php");
               <!-- AJAX CODE -->
               <script >
                $(document).ready(function(){
-                  console.log("myjs");
-
-                    $('.aa-add-card-btn').click(function(){
-                        var productid=$(this).data('product_id');
-                        var type=$(this).data('type');
-                        var qty=$(this).data('qty');
-                        //console.log(product)
-                      $.ajax({
-                            method: "POST",
-                            url: "manage_cart.php",
-                            data: { id: productid, type:type, qty:qty   }
-                          })
-                          .done(function( msg ) {
-                            alert(msg);
-                
-                          });
-                  
+                  //console.log("my_JS");
+                  $('.aa-add-card-btn').click(function(){
+                      var productid=$(this).data('product_id');
+                      var type=$(this).data('type');
+                      var qty=$(this).data('qty');
+                      //console.log(product)
+                    $.ajax({
+                      method: "POST",
+                      url: "manage_cart.php",
+                      data: { id: productid, type:type, qty:qty }
+                    })
+                    .done(function( msg ) {
+                      alert(msg);
                     });
+                  });
                 });
+              </script> 
+
+              <script>
+                $(document).ready(function(){
+                  $(".quick").click(function(){
+                    var product_id=$(this).data('id');
+                    $.ajax({
+                      method:"POST",
+                      url:"quickview.php",
+                      data: {id : product_id},
+                      dataType:"json"
+                    })
+                    .done(function( msg ) {
+                      //alert(msg.product_id);
+                      $(".name").html(msg.product.name);
+                      $(".aa-product-quickview-price").html(msg.product.price);
+                      $(".discription").html(msg.product.discription);
+                      $(".aa-prod-category").html(msg.product.category_id);
+                      $(".simpleLens-lens-image").html('<img src="admin/resources/images/'+msg.product.image+'">');
+                      $(".simpleLens-thumbnail-wrapper").html('<img src="admin/resources/images/'+msg.product.image+'" height="50" width="50">');
+                    });
+                  });
+                });  
               </script> 
               
               <!-- quick view modal -->                  
@@ -561,18 +581,19 @@ include("config.php");
                                      data-big-image="img/view-slider/medium/polo-shirt-4.png">
                                       <img src="img/view-slider/thumbnail/polo-shirt-4.png">
                                   </a>
-                              </div>                            </div>
+                              </div>                            
+                            </div>
                           </div>
                         </div>
                         <!-- Modal view content -->
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="aa-product-view-content">
-                            <h3>T-Shirt</h3>
+                            <h3 class="name"></h3>
                             <div class="aa-price-block">
-                              <span class="aa-product-view-price">$34.99</span>
+                              <span class="aa-product-quickview-price"></span>
                               <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                            <p class="discription"></p>
                             <h4>Size</h4>
                             <div class="aa-prod-view-size">
                               <a href="#">S</a>
@@ -591,8 +612,9 @@ include("config.php");
                                   <option value="5">6</option>
                                 </select>
                               </form>
-                              <p class="aa-prod-category">
-                                Category: <a href="#">Polo T-Shirt</a>
+                              <!-- <p class="aa-prod-category"> -->
+                              <p>
+                                Category: <a class="aa-prod-category" href="#"></a>
                               </p>
                             </div>
                             <div class="aa-prod-view-bottom">
@@ -630,7 +652,6 @@ include("config.php");
                 {
                   echo '<li><a href="product.php?page='.($page+1).'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
                 }
-
                }
               ?>
                 <!-- <ul class="pagination">
